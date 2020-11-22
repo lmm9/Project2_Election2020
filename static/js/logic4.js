@@ -1,6 +1,6 @@
 // Creating map object
 var myMap = L.map("map", {
-  center: [39, -98],
+  center: [39.50, -98.35],
   zoom: 3.5
 });
 
@@ -46,8 +46,8 @@ d3.json(sLink, function(data) {
         color: "white",
         // Call the chooseColor function to decide which color to color our neighborhood (color based on borough)
         fillColor: chooseColor(feature.properties.NAME),
-        fillOpacity: 0.5,
-        weight: 1.5
+        fillOpacity: 1,
+        weight: 1
       };
     },
     // Called on each feature
@@ -65,7 +65,7 @@ d3.json(sLink, function(data) {
         mouseout: function(event) {
           layer = event.target;
           layer.setStyle({
-            fillOpacity: 0.5
+            fillOpacity: 1
           });
         },
         // When a feature (NAME) is clicked, it is enlarged to fit the screen
