@@ -5,7 +5,6 @@ var myMap = L.map("map", {
 //    layers: [states, counties]
   });
 
-
 // Adding tile layer
 L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
   attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
@@ -24,10 +23,14 @@ var sLink = "static/data/gzstate.json";
 var sData = "static/data/state_votes_sqlfinal.csv"
 //var cData = "static/data/county_votes_sqlfinal.csv";
 
+//Read the state election data file
+var stateElection = d3.csv(sData, function(data) {
+    console.log(data)
+});
 
 //Read the state election data file
-var stateData = d3.csv(sData, function(data) {
-    console.log(data)
+var stateShape = d3.json(sLink, function(data) {
+  console.log(data.features.properties);
 });
 
 //Read the county election data file
@@ -35,29 +38,36 @@ var stateData = d3.csv(sData, function(data) {
 //     console.log(data)
 // });
 
+
 // Function that will determine the color of a state based on the state_winner
 function stateColor(NAME) {
   switch (NAME) {
-  case "Maryland":
-    return "blue";
   case "Virginia":
+    return "blue";
+  case "Maryland":
     return "red";
   default:
     return "black";
   }
 }
+
 // This function accepts a parameter and iterates through an array
-// function stateColor(NAME, stateData) {
-//     for NAME == stateData.state,
-//     function stateLoop(stateData) {
-//         for (var i = 0; i < stateData.length; i++) {
-//             if stateData.state_winner="biden",
-//                 return "blue",
-//             elseif stateData.state_winner="trump",
-//                 return "red",
-//             else,
-//                 return "black";
-// }}
+function chooseColor(stateElection, stateShape) {
+    for (var i = 0; i < stateElection.length; i++) {
+      for (var j = 0; j < stateShape.features; j++) {
+        if (stateElection[i].state===stateShape.features[j].properties.NAME) {
+          console.log(stateElection[i].state),
+          console.log(stateShape.features[j].properties.NAME)
+        }}}};
+        // function stateLoop(stateData[i]) {
+        //     if (stateData[i].state_winner="biden")
+        //         return "yellow",
+        //     elseif (stateData[i].state_winner="trump")
+        //         return "red";
+        //     //else,
+            //    return "black";
+// }}}}
+// }
 
 // Create two separate layer groups: states and counties
 //var states = L.layerGroup(stateOutlines);
@@ -78,7 +88,7 @@ d3.json(sLink, function(data) {
       return {
         color: "white",
         // Call the chooseColor function to decide color for each state
-        fillColor: stateColor(feature.properties.NAME),
+        fillColor: chooseColor(features.properties.NAME),
         fillOpacity: 1,
         weight: 1
       };
@@ -124,7 +134,7 @@ d3.json(sLink, function(data) {
         }
       });
       // Giving each feature a pop-up with information pertinent to it
-      layer.bindPopup("<h1>" + feature.properties.NAME + "</h1> <hr> <h2>" + feature.properties.STATE + "</h2>");
+   //   layer.bindPopup("<h1>" + feature.properties.NAME + "</h1> <hr> <h2>" + stateData[state = NAME]state_winner] + "</h2>");
 
     }
   }).addTo(myMap);

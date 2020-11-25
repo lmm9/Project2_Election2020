@@ -16,7 +16,21 @@ L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 
 // Use this link to get the geojson data.
 var sLink = "static/data/gzstate.json";
-var cLink = "static/data/gzcounty.json";
+//var cLink = "static/data/gzcounty.json";
+
+// Use this link to get the election data.
+var sData = "static/data/state_votes_sqlfinal.csv"
+//var cData = "static/data/county_votes_sqlfinal.csv";
+
+//Read the state election data file
+var stateData = d3.csv(sData, function(data) {
+    console.log(data)
+});
+
+//Read the state election data file
+var stateShape = d3.json(sLink, function(data) {
+  console.log(data)
+});
 
 // Function that will determine the color of a state based on the borough it belongs to
 function chooseColor(NAME) {
@@ -29,8 +43,98 @@ function chooseColor(NAME) {
     return "blue";
   case "Georgia":
     return "blue";
-  case "Texas":
-    return "red";
+  case "Pennsylvania":
+    return "blue";
+  // case "New York":
+  //   return "blue";
+  // case "New Jersey":
+  //   return "blue";
+  // case "Delaware":
+  //   return "blue";
+  // case "Vermont":
+  //   return "blue";
+  // case "Massachusetts":
+  //   return "blue";
+  // case "New Hampshire":
+  //   return "blue";
+  // case "Connecticut":
+  //   return "blue";
+  // case "Illinois":
+  //   return "blue";
+  // case "Michigan":
+  //   return "blue";
+  // case "Minnesota":
+  //   return "blue";
+  // case "Nevada":
+  //   return "blue";
+  //   case "Arizona":
+  //     return "blue";
+  //   case "Oregon":
+  //     return "blue";
+  //   case "Washington":
+  //     return "blue";
+  //   case "California":
+  //     return "blue";
+  //   case "Hawaii":
+  //     return "blue";
+  //   case "Idaho":
+  //     return "red";
+  //   case "Montana":
+  //     return "red";
+  //   case "Alaska":
+  //     return "red";
+  //   case "Indiana":
+  //     return "red";
+  //   case "Ohio":
+  //     return "red";
+  //   case "Oklahoma":
+  //     return "red";
+  //   case "North Carolina":
+  //     return "red";
+  //   case "South Carolina":
+  //     return "red";
+  //   case "North Dakota":
+  //     return "red";
+  //   case "South Dakota":
+  //     return "red";  
+case "Florida":
+return "red";
+    case "Texas":
+      return "red";
+  //   case "Wisconsin":
+  //     return "blue";
+  //   case "Missouri":
+  //     return "red";
+  //   case "Louisiana":
+  //     return "red";
+  //   case "Iowa":
+  //     return "red";
+  //   case "Arkansas":
+  //     return "red";
+  //   case "Mississippi":
+  //     return "red";
+  //   case "Alabama":
+  //     return "red";
+  //   case "Kentucky":
+  //     return "red";  
+  // case "Tennessee":
+  //   return "red";
+  // case "West Virginia":
+  //   return "red";
+  //   case "Colorado":
+  //     return "red";
+  //   case "Utah":
+  //     return "red";  
+  // case "Wyoming":
+  //   return "red";
+  //   case "Nebraska":
+  //     return "red";
+  //   case "New Mexico":
+  //     return "blue";  
+  // case "Kansas":
+  //   return "red";
+  //   case "Rhode Island":
+  //     return "blue";      
   default:
     return "black";
   }
